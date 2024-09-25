@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddndauqdm8obq"]
+[gd_scene load_steps=5 format=3 uid="uid://ddndauqdm8obq"]
 
 [ext_resource type="Material" uid="uid://c0ud8ap10h0la" path="res://assets/red.tres" id="1_763p7"]
 [ext_resource type="Material" uid="uid://b6vsk6qwx2bc5" path="res://assets/green.tres" id="2_rg400"]
+[ext_resource type="Script" path="res://scripts/hole.gd" id="3_o2olt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_516aq"]
 size = Vector3(20, 1, 20)
@@ -41,6 +42,7 @@ operation = 2
 radius = 0.204927
 height = 1.216
 sides = 18
+script = ExtResource("3_o2olt")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_layer = 2

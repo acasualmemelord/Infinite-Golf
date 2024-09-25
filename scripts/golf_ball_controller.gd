@@ -12,7 +12,6 @@ var speed : Vector3
 var distance : float
 var direction :Vector3
 
-
 func _ready() -> void:
 	#We set the scaler as top level to ignore parent's transformations.
 	#Otherwise, the camera will rotate violently.
@@ -36,8 +35,9 @@ func _input(event) -> void:
 		selected = false
 		
 func _process(delta) -> void:
-	if self.position.y < -25:
-		self.position.y = 25
+	if self.position.y < -4:
+		PlayerVariables.nextLevel()
+		self.position.y = 46
 	
 	#Function to follow the golf ball.
 	scaler_follow()
@@ -48,6 +48,7 @@ func shoot(vector:Vector3)->void:
 	velocity = Vector3(vector.x,0,vector.z)
 	
 	self.apply_impulse(velocity, Vector3.ZERO)
+	PlayerVariables.strokes += 1
 	
 #Function to the follow golf ball.
 func scaler_follow() -> void:
