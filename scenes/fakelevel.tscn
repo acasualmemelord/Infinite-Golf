@@ -1,8 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddndauqdm8obq"]
+[gd_scene load_steps=7 format=3 uid="uid://ddndauqdm8obq"]
 
-[ext_resource type="Material" uid="uid://c0ud8ap10h0la" path="res://assets/red.tres" id="1_763p7"]
-[ext_resource type="Material" uid="uid://b6vsk6qwx2bc5" path="res://assets/green.tres" id="2_rg400"]
+[ext_resource type="Texture2D" uid="uid://dm387uwadpugg" path="res://assets/kenney_prototype_textures/red/texture_09.png" id="1_7bmaj"]
+[ext_resource type="Texture2D" uid="uid://brwiegf78prsh" path="res://assets/kenney_prototype_textures/green/texture_09.png" id="2_2nbhk"]
 [ext_resource type="Script" path="res://scripts/hole.gd" id="3_o2olt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2eynd"]
+shading_mode = 0
+albedo_color = Color(0.576471, 1, 0.764706, 1)
+albedo_texture = ExtResource("1_7bmaj")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_world_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5apxh"]
+shading_mode = 0
+albedo_color = Color(0.596078, 0.701961, 0.929412, 1)
+albedo_texture = ExtResource("2_2nbhk")
+uv1_triplanar = true
+uv1_world_triplanar = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_516aq"]
 size = Vector3(20, 1, 20)
@@ -15,26 +30,26 @@ use_collision = true
 [node name="mainWall1" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 0, 0)
 size = Vector3(20, 1.5, 0.4)
-material = ExtResource("1_763p7")
+material = SubResource("StandardMaterial3D_2eynd")
 
 [node name="mainWall2" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10, 0, 0)
 size = Vector3(20, 1.5, 0.4)
-material = ExtResource("1_763p7")
+material = SubResource("StandardMaterial3D_2eynd")
 
 [node name="mainWall3" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 size = Vector3(20, 1.5, 0.4)
-material = ExtResource("1_763p7")
+material = SubResource("StandardMaterial3D_2eynd")
 
 [node name="mainWall4" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
 size = Vector3(20, 1.5, 0.4)
-material = ExtResource("1_763p7")
+material = SubResource("StandardMaterial3D_2eynd")
 
 [node name="ground" type="CSGBox3D" parent="CSGCombiner3D"]
 size = Vector3(20, 1, 20)
-material = ExtResource("2_rg400")
+material = SubResource("StandardMaterial3D_5apxh")
 
 [node name="hole" type="CSGCylinder3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 7.985, 0, 0, 0, 1, 0, 0, 1)

@@ -37,7 +37,7 @@ func _input(event) -> void:
 func _process(delta) -> void:
 	if self.position.y < -4:
 		PlayerVariables.nextLevel()
-		self.position.y = 46
+		self.position.y = 21
 	
 	#Function to follow the golf ball.
 	scaler_follow()

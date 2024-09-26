@@ -25,6 +25,7 @@ func nextLevel() -> void:
 	var temp = str2 % [level, holePos, strokes]
 	print(temp)
 	strokes = 0
+	emit_signal("updateHole")
 	emit_signal("updateObstacles")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

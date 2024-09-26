@@ -38,4 +38,4 @@ metadata/_edit_lock_ = true
 [node name="Level" parent="." instance=ExtResource("1_s8f4l")]
 
 [node name="Level2" parent="." instance=ExtResource("3_wp8ju")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
