@@ -7,7 +7,7 @@ var walls = []
 func _ready() -> void:
 	PlayerVariables.connect("updateObstacles", updateObstacles)
 	wall = get_parent().get_node("Wall")
-	pass # Replace with function body.
+	updateObstacles(10)
 
 func updateObstacles(num) -> void:
 	destroyObstacles()

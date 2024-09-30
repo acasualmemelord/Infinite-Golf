@@ -19,7 +19,7 @@ func _ready() -> void:
 	var temp = str % [level, holePos]
 	print(temp)
 	emit_signal("updateHole")
-	emit_signal("updateObstacles", 10)
+	
 
 func nextLevel() -> void:
 	holePos = Vector3(rng.randf_range(-8, 8), 0, rng.randf_range(-8, 8))
@@ -27,7 +27,7 @@ func nextLevel() -> void:
 	var temp = str2 % [level, holePos, strokes]
 	print(temp)
 	emit_signal("updateHole")
-	emit_signal("updateObstacles", 10 + strokes)
+	emit_signal("updateObstacles", 10 + 5 * strokes)
 	strokes = 0
 	emit_signal("updateInterface")
 	
