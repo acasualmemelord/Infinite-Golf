@@ -16,7 +16,7 @@ func updateObstacles() -> void:
 		temp.rotation = Vector3(0, deg_to_rad(rng.randf_range(0, 360)), 0)
 		walls.append(temp)
 		self.get_parent().add_child(temp)
-	print("added walls")
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
