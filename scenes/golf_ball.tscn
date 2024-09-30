@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://11owygk64ae0"]
 
-[ext_resource type="Script" path="res://scripts/golf_ball_controller.gd" id="1_md8gv"]
+[ext_resource type="Script" path="res://scripts/golfBall.gd" id="1_md8gv"]
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="2_3p86k"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_p4kc3"]

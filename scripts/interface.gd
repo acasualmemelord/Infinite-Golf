@@ -1,11 +1,11 @@
 extends Node
 
-
+var str = "Level: %s\nStrokes: %s"
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	PlayerVariables.connect("updateInterface", updateInterface)
+	updateInterface()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func updateInterface():
+	var temp = str % [PlayerVariables.level, PlayerVariables.strokes]
+	self.text = temp

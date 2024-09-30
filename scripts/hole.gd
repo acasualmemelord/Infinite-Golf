@@ -8,7 +8,3 @@ func _ready() -> void:
 
 func updateHole() -> void:
 	self.position = PlayerVariables.holePos
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

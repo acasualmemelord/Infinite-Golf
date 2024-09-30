@@ -19,7 +19,7 @@ func _ready() -> void:
 	pass
 	
 #Checking if the golf ball is selected.
-func _on_input_event(camera, event, position, normal, shape_idx) -> void:
+func _on_input_event(_camera, event, _position, _normal, _shape_idx) -> void:
 	if event.is_action_pressed("left_mb"):
 		selected = true
 		
@@ -34,7 +34,7 @@ func _input(event) -> void:
 		
 		selected = false
 		
-func _process(delta) -> void:
+func _process(_delta) -> void:
 	if self.position.y < -4:
 		PlayerVariables.nextLevel()
 		self.position.y = 21
@@ -48,7 +48,7 @@ func shoot(vector:Vector3)->void:
 	velocity = Vector3(vector.x,0,vector.z)
 	
 	self.apply_impulse(velocity, Vector3.ZERO)
-	PlayerVariables.strokes += 1
+	PlayerVariables.stroke()
 	
 #Function to the follow golf ball.
 func scaler_follow() -> void:
@@ -73,3 +73,11 @@ func pull_meter() -> void:
 		else:
 			#Resetting the scaler.
 			scaler.scale.z = 0.01
+
+
+func _physics_process(delta: float) -> void:
+	for node in get_colliding_bodies():
+		if not node.name == "CSGCombiner3D":
+			print(node.name)
+		if node.is_in_group("Wall"):
+			node.queue_free()

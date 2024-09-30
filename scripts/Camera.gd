@@ -18,7 +18,7 @@ func _ready() -> void:
 	#Otherwise, the camera will rotate violently.
 	self.set_as_top_level(true)
 		
-func _process(delta) -> void:
+func _process(_delta) -> void:
 	#Function to follow golf ball.
 	camera_follow()
 	
