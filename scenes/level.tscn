@@ -3,49 +3,24 @@
 [ext_resource type="Material" uid="uid://c0ud8ap10h0la" path="res://assets/red.tres" id="1_r7a61"]
 [ext_resource type="Script" path="res://scripts/wallCreator.gd" id="2_loe7y"]
 [ext_resource type="Material" uid="uid://b6vsk6qwx2bc5" path="res://assets/green.tres" id="2_wsfcy"]
-[ext_resource type="Script" path="res://scripts/wall.gd" id="3_1h0qk"]
 [ext_resource type="Script" path="res://scripts/hole.gd" id="3_ygkav"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1ufbk"]
+size = Vector3(5, 0.5, 0.4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_516aq"]
 size = Vector3(20, 1, 20)
 
 [node name="Level" type="Node3D"]
 
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+[node name="Floor" type="CSGCombiner3D" parent="." groups=["Floor"]]
 use_collision = true
 
-[node name="mainWall1" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 0, 0)
-size = Vector3(20, 1.5, 0.4)
-material = ExtResource("1_r7a61")
-script = ExtResource("2_loe7y")
-
-[node name="mainWall2" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10, 0, 0)
-size = Vector3(20, 1.5, 0.4)
-material = ExtResource("1_r7a61")
-
-[node name="mainWall3" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
-size = Vector3(20, 1.5, 0.4)
-material = ExtResource("1_r7a61")
-
-[node name="mainWall4" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
-size = Vector3(20, 1.5, 0.4)
-material = ExtResource("1_r7a61")
-
-[node name="Wall" type="CSGBox3D" parent="CSGCombiner3D" groups=["Wall"]]
-transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 10, 100, -10)
-size = Vector3(5, 0.5, 0.4)
-material = ExtResource("1_r7a61")
-script = ExtResource("3_1h0qk")
-
-[node name="ground" type="CSGBox3D" parent="CSGCombiner3D" groups=["Floor"]]
+[node name="ground" type="CSGBox3D" parent="Floor" groups=["Floor"]]
 size = Vector3(20, 1, 20)
 material = ExtResource("2_wsfcy")
 
-[node name="hole" type="CSGCylinder3D" parent="CSGCombiner3D"]
+[node name="hole" type="CSGCylinder3D" parent="Floor"]
 transform = Transform3D(1, 0, 0, 0, 7.985, 0, 0, 0, 1, 0, 0, 1)
 operation = 2
 radius = 0.204927
@@ -53,7 +28,46 @@ height = 1.216
 sides = 18
 script = ExtResource("3_ygkav")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="Walls" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="mainWall1" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 0, 0)
+size = Vector3(20, 1.5, 0.4)
+material = ExtResource("1_r7a61")
+
+[node name="mainWall2" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10, 0, 0)
+size = Vector3(20, 1.5, 0.4)
+material = ExtResource("1_r7a61")
+
+[node name="mainWall3" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+size = Vector3(20, 1.5, 0.4)
+material = ExtResource("1_r7a61")
+
+[node name="mainWall4" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+size = Vector3(20, 1.5, 0.4)
+material = ExtResource("1_r7a61")
+
+[node name="CreatedWall" type="CSGCombiner3D" parent="." groups=["Wall"]]
+use_collision = true
+
+[node name="WallMaker" type="Node3D" parent="CreatedWall"]
+script = ExtResource("2_loe7y")
+
+[node name="Wall" type="CSGBox3D" parent="CreatedWall" groups=["Wall"]]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 10, 100, -10)
+size = Vector3(5, 0.5, 0.4)
+material = ExtResource("1_r7a61")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CreatedWall/Wall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CreatedWall/Wall/StaticBody3D"]
+shape = SubResource("BoxShape3D_1ufbk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["Floor"]]
 collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]

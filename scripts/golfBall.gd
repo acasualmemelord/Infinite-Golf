@@ -77,7 +77,5 @@ func pull_meter() -> void:
 
 func _physics_process(delta: float) -> void:
 	for node in get_colliding_bodies():
-		if not node.name == "CSGCombiner3D":
-			print(node.name)
-		if node.is_in_group("Wall"):
-			node.queue_free()
+		if not node.is_in_group("Floor") and node.name == "StaticBody3D":
+			node.get_parent().queue_free()
