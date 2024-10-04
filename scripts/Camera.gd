@@ -4,6 +4,8 @@ extends Camera3D
 
 #Variables for raycast
 const ray_length = 100
+const normal = 4.1
+const topdown = 15
 var mouse_pos : Vector2
 var from : Vector3
 var to : Vector3
@@ -11,20 +13,40 @@ var space : PhysicsDirectSpaceState3D
 var query : PhysicsRayQueryParameters3D
 
 #Variable for camera follow
+var y = 4.1
 var vector : Vector3
 
 func _ready() -> void:
 	#We set the camera as top level to ignore parent's transformations. 
 	#Otherwise, the camera will rotate violently.
 	self.set_as_top_level(true)
+	PlayerVariables.connect("increaseView", increaseView)
+	PlayerVariables.connect("decreaseView", decreaseView)
 		
 func _process(_delta) -> void:
 	#Function to follow golf ball.
 	camera_follow()
 	
+func _input(event) -> void:
+	#After the mouse is released, we calculate the speed and shoot the ball in the given direction.	
+	if event.is_action_released("up"):
+		increaseView()
+	elif event.is_action_released("down"):
+		decreaseView()
+	
+func increaseView() -> void:
+	while y < topdown:
+		y += 0.5
+	y = topdown
+	
+func decreaseView() -> void:
+	while y > normal:
+		y -= 0.5
+	y = normal
+	
 #Function to follow golf ball.
 func camera_follow() -> void:
-	vector = Vector3(golf_ball.transform.origin.x, golf_ball.transform.origin.y + 4.1, golf_ball.transform.origin.z)
+	vector = Vector3(golf_ball.transform.origin.x, golf_ball.transform.origin.y + y, golf_ball.transform.origin.z)
 	
 	self.transform.origin = self.transform.origin.lerp(vector,1)
 	
