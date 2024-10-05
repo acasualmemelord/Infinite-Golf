@@ -1,11 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://11owygk64ae0"]
 
-[ext_resource type="Script" path="res://scripts/golfBall.gd" id="1_md8gv"]
+[ext_resource type="Script" path="res://scripts/GolfBall.gd" id="1_md8gv"]
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="2_3p86k"]
 [ext_resource type="Script" path="res://scripts/Arrow.gd" id="3_2eid4"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_p4kc3"]
-friction = 0.0
 rough = true
 bounce = 0.35
 
@@ -50,6 +49,7 @@ script = ExtResource("3_2eid4")
 
 [node name="Triangle" type="MeshInstance3D" parent="Arrow"]
 transform = Transform3D(0.26, 0, 0, 0, -1.42062e-08, 0.022, 0, -0.325, -9.61651e-10, 0, 0, -0.5)
+cast_shadow = 0
 mesh = SubResource("PrismMesh_cbxa5")
 skeleton = NodePath("../..")
 

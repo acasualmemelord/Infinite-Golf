@@ -14,7 +14,7 @@ func _ready() -> void:
 func updateHole() -> void:
 	hole_position = PlayerVariables.holePos
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	ball_position = ball.global_transform.origin
 
 	var direction = hole_position - ball_position

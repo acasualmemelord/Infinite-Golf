@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dm387uwadpugg" path="res://assets/kenney_prototype_textures/red/texture_09.png" id="1_7bmaj"]
 [ext_resource type="Texture2D" uid="uid://brwiegf78prsh" path="res://assets/kenney_prototype_textures/green/texture_09.png" id="2_2nbhk"]
-[ext_resource type="Script" path="res://scripts/hole.gd" id="3_o2olt"]
+[ext_resource type="Script" path="res://scripts/Hole.gd" id="3_o2olt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2eynd"]
 shading_mode = 0

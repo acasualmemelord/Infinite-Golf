@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://cgcv2cybxk4or"]
 
 [ext_resource type="Material" uid="uid://c0ud8ap10h0la" path="res://assets/red.tres" id="1_r7a61"]
-[ext_resource type="Script" path="res://scripts/wallCreator.gd" id="2_loe7y"]
+[ext_resource type="Script" path="res://scripts/Wall.gd" id="2_loe7y"]
 [ext_resource type="Material" uid="uid://b6vsk6qwx2bc5" path="res://assets/green.tres" id="2_wsfcy"]
-[ext_resource type="Script" path="res://scripts/hole.gd" id="3_ygkav"]
+[ext_resource type="Script" path="res://scripts/Hole.gd" id="3_ygkav"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1ufbk"]
 size = Vector3(5, 0.5, 0.4)

@@ -10,7 +10,8 @@ func _ready() -> void:
 	updateObstacles(10)
 
 func updateObstacles(num) -> void:
-	destroyObstacles()
+	if not PlayerVariables.difficulty == "hardcore":
+		destroyObstacles()
 	for n in range(0, num):
 		var temp = wall.duplicate()
 		var length = rng.randf_range(1, 5)

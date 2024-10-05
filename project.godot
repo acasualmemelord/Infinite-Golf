@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Infinite-Golf"
-run/main_scene="res://golf_course.tscn"
+run/main_scene="res://GolfCourse.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-PlayerVariables="*res://player_variables.gd"
+PlayerVariables="*res://PlayerVariables.gd"
 
 [global_group]
 

@@ -1,6 +1,6 @@
 extends RigidBody3D
 
-@export var max_speed : int = 8
+@export var max_speed : int = 12
 @export var accel : int = 5
 
 @onready var scaler = $Scaler
@@ -22,7 +22,7 @@ func _ready() -> void:
 	
 #Checking if the golf ball is selected.
 func _on_input_event(_camera, event, _position, _normal, _shape_idx) -> void:
-	if event.is_action_pressed("left_mb"):
+	if event.is_action_pressed("left_mb") and (PlayerVariables.mode == "arcade" or PlayerVariables.strokes < PlayerVariables.maxStrokes):
 		selected = true
 		
 func _input(event) -> void:
@@ -82,7 +82,7 @@ func pull_meter() -> void:
 			scaler.scale.z = 0.01
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	for node in get_colliding_bodies():
-		if not node.is_in_group("Floor") and node.name == "StaticBody3D":
+		if not node.is_in_group("Floor") and node.name == "StaticBody3D" and not PlayerVariables.difficulty == "hardcore":
 			node.get_parent().queue_free()

@@ -20,8 +20,6 @@ func _ready() -> void:
 	#We set the camera as top level to ignore parent's transformations. 
 	#Otherwise, the camera will rotate violently.
 	self.set_as_top_level(true)
-	PlayerVariables.connect("increaseView", increaseView)
-	PlayerVariables.connect("decreaseView", decreaseView)
 		
 func _process(_delta) -> void:
 	#Function to follow golf ball.
@@ -30,20 +28,12 @@ func _process(_delta) -> void:
 func _input(event) -> void:
 	#After the mouse is released, we calculate the speed and shoot the ball in the given direction.	
 	if event.is_action_released("up"):
-		increaseView()
+		if (y < topdown):
+			y += 0.5
 	elif event.is_action_released("down"):
-		decreaseView()
-	
-func increaseView() -> void:
-	while y < topdown:
-		y += 0.5
-	y = topdown
-	
-func decreaseView() -> void:
-	while y > normal:
-		y -= 0.5
-	y = normal
-	
+		if (y > normal):
+			y -= 0.5
+			
 #Function to follow golf ball.
 func camera_follow() -> void:
 	vector = Vector3(golf_ball.transform.origin.x, golf_ball.transform.origin.y + y, golf_ball.transform.origin.z)
