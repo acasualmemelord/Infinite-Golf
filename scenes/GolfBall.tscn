@@ -16,6 +16,7 @@ height = 0.205
 radius = 0.102
 
 [sub_resource type="QuadMesh" id="QuadMesh_47i7u"]
+flip_faces = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cd2xx"]
 
@@ -37,10 +38,10 @@ transform = Transform3D(1, 0, 0, 0, 0.173648, 0.984808, 0, -0.984808, 0.173648, 
 script = ExtResource("2_3p86k")
 
 [node name="Scaler" type="Marker3D" parent="."]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.01, 0, 0, 0)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, -2, 0, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Scaler"]
-transform = Transform3D(1, -4.23516e-22, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.5)
+[node name="Mesh" type="MeshInstance3D" parent="Scaler"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.5)
 mesh = SubResource("QuadMesh_47i7u")
 surface_material_override/0 = SubResource("StandardMaterial3D_cd2xx")
 
@@ -52,5 +53,3 @@ transform = Transform3D(0.26, 0, 0, 0, -1.42062e-08, 0.022, 0, -0.325, -9.61651e
 cast_shadow = 0
 mesh = SubResource("PrismMesh_cbxa5")
 skeleton = NodePath("../..")
-
-[connection signal="input_event" from="." to="." method="_on_input_event"]

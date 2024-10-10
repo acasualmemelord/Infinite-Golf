@@ -1,0 +1,95 @@
+[gd_scene load_steps=9 format=3 uid="uid://ddgyp68xonxpm"]
+
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1_0hp73"]
+[ext_resource type="PackedScene" uid="uid://11owygk64ae0" path="res://scenes/GolfBall.tscn" id="1_rdf4p"]
+[ext_resource type="PackedScene" uid="uid://cgcv2cybxk4or" path="res://scenes/Level.tscn" id="2_8lycb"]
+[ext_resource type="PackedScene" uid="uid://ddndauqdm8obq" path="res://scenes/FakeLevel.tscn" id="3_y7lnm"]
+[ext_resource type="Script" path="res://scripts/Interface.gd" id="4_5vos6"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x3fjl"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_7l8md"]
+sky_material = SubResource("ProceduralSkyMaterial_x3fjl")
+
+[sub_resource type="Environment" id="Environment_470j2"]
+background_mode = 2
+sky = SubResource("Sky_7l8md")
+tonemap_mode = 2
+ssao_enabled = true
+ssao_radius = 0.21
+ssao_intensity = 1.53
+ssao_power = 3.44609
+glow_enabled = true
+
+[node name="Golf_course" type="Node"]
+script = ExtResource("1_0hp73")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_470j2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+shadow_bias = 0.02
+
+[node name="Golf Ball" parent="." instance=ExtResource("1_rdf4p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1.761)
+contact_monitor = true
+max_contacts_reported = 3
+angular_damp = 0.5
+metadata/_edit_lock_ = true
+
+[node name="Level" parent="." instance=ExtResource("2_8lycb")]
+
+[node name="Level2" parent="." instance=ExtResource("3_y7lnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
+
+[node name="Interface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Info" type="RichTextLabel" parent="Interface"]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 200.0
+theme_override_font_sizes/normal_font_size = 35
+script = ExtResource("4_5vos6")
+
+[node name="PauseMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 300.0
+offset_right = 750.0
+offset_bottom = 600.0
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Resume"
+
+[node name="SettingsButton" type="Button" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Quit"
+
+[connection signal="pressed" from="PauseMenu/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

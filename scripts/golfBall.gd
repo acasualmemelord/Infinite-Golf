@@ -1,6 +1,6 @@
 extends RigidBody3D
 
-@export var max_speed : int = 12
+@export var max_speed : int = 20
 @export var accel : int = 5
 
 @onready var scaler = $Scaler
@@ -14,25 +14,31 @@ var direction :Vector3
 
 var moving: bool = false
 
+var soundPlayer
+var hitSound
+var landSound
+var wallSound
+var holeSound
+
 func _ready() -> void:
-	#We set the scaler as top level to ignore parent's transformations.
-	#Otherwise, the camera will rotate violently.
 	scaler.set_as_top_level(true)
-	pass
-	
-#Checking if the golf ball is selected.
-func _on_input_event(_camera, event, _position, _normal, _shape_idx) -> void:
-	if event.is_action_pressed("left_mb") and (PlayerVariables.mode == "arcade" or PlayerVariables.strokes < PlayerVariables.maxStrokes):
-		selected = true
+	soundPlayer = AudioStreamPlayer.new()
+	self.add_child(soundPlayer)
+	soundPlayer.bus = &"SFX"
+	hitSound = preload("res://assets/hit.wav")
+	landSound = preload("res://assets/land.wav")
+	holeSound = preload("res://assets/hole.wav")
 		
-func _input(event) -> void:
+func _input(_event) -> void:
+	if _event.is_action_pressed("left_mb") and (not PlayerVariables.paused) and (PlayerVariables.mode == "arcade" or PlayerVariables.strokes < PlayerVariables.maxStrokes):
+		selected = true
 	#After the mouse is released, we calculate the speed and shoot the ball in the given direction.	
-	if event.is_action_released("left_mb"):
+	if _event.is_action_released("left_mb"):
 		if selected:
 			#Calculating the speed 
-			speed = - (direction * distance * accel).limit_length(max_speed)
-			
-			shoot(speed)
+			speed = -(direction * distance * accel).limit_length(max_speed)
+			if speed.length() > 1:
+				shoot(speed)
 		
 		selected = false
 		
@@ -40,11 +46,24 @@ func _process(_delta) -> void:
 	# sanity check: stop ball from phasing through ground
 	if self.position.y < 0.601497 and self.linear_velocity.y < -7 and self.position.distance_to(PlayerVariables.holePos) > 1:
 		self.position.y = 0.601497
+	
+	# sanity check: stop ball from flying out of the field
+	if self.position.x > 10:
+		self.position.x = 9.5
+	if self.position.x < -10:
+		self.position.x = -9.5
+	if self.position.z > 10:
+		self.position.z = 9.5
+	if self.position.z < -10:
+		self.position.z = -9.5
 		
 	# next level
 	if self.position.y < -4:
 		PlayerVariables.nextLevel()
 		self.position.y = 21
+		
+	if PlayerVariables.strokes == PlayerVariables.maxStrokes and my_equal_approx(self.linear_velocity, Vector3.ZERO):
+		PlayerVariables.lose()
 	
 	# function to follow the golf ball
 	scaler_follow()
@@ -55,6 +74,8 @@ func shoot (vector:Vector3) -> void:
 	velocity = Vector3(vector.x,0,vector.z)
 	
 	self.apply_impulse(velocity, Vector3.ZERO)
+	soundPlayer.stream = hitSound
+	soundPlayer.play()
 	PlayerVariables.stroke()
 	
 #Function to the follow golf ball.
@@ -74,15 +95,46 @@ func pull_meter() -> void:
 		scaler.look_at(Vector3(ray_cast.position.x,position.y,ray_cast.position.z))
 		
 		if selected:
-			#Scaling the scaler with limitation.
-			scaler.scale.z = clamp(distance,0,2)
+			# Scaling the scaler with limitation
+			scaler.scale.z = -clamp(distance, 0, 2)
+
+			# Create the new material
+			var material = StandardMaterial3D.new()
+			material.albedo_color = get_color_based_on_distance(distance)
+
+			# Get the MeshInstance3D node and apply the material
+			var mesh_instance = scaler.get_node("Mesh")
+			mesh_instance.set_surface_override_material(0, material)
 			
 		else:
 			#Resetting the scaler.
 			scaler.scale.z = 0.01
 
+func get_color_based_on_distance(length: float) -> Color:
+	if length <= 3:
+		# Lerp between green (0,1,0) and yellow (1,1,0)
+		var t = length / 3.0
+		return Color(lerp(0.0, 1.0, t), 1.0, 0.0)
+	elif length <= 6:
+		# Lerp between yellow (1,1,0) and red (1,0,0)
+		var t = (length - 3.0) / 3.0
+		return Color(1.0, lerp(1.0, 0.0, t), 0.0)
+	else:
+		# If length is greater than 6, return red (1,0,0)
+		return Color(1.0, 0.0, 0.0)
 
 func _physics_process(_delta: float) -> void:
 	for node in get_colliding_bodies():
-		if not node.is_in_group("Floor") and node.name == "StaticBody3D" and not PlayerVariables.difficulty == "hardcore":
-			node.get_parent().queue_free()
+		if not node.is_in_group("Floor"):
+			if node.name == "StaticBody3D":
+				node.get_parent().hit()
+		else:
+			if self.position.y < -0.5:
+				soundPlayer.stream = holeSound
+				soundPlayer.play()
+			if self.linear_velocity.y < -5:
+				soundPlayer.stream = landSound
+				soundPlayer.play()
+
+func my_equal_approx(a: Vector3, b: Vector3) -> bool:
+	return abs(a - b).length() < 0.01

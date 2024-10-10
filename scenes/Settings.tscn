@@ -1,0 +1,88 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7aealgsciaiq"]
+
+[ext_resource type="Script" path="res://scripts/Settings.gd" id="1_yvif4"]
+[ext_resource type="Texture2D" uid="uid://c6qv54vi3nbm1" path="res://assets/field.tres" id="2_oe6qn"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yvif4")
+
+[node name="Field" type="Sprite2D" parent="."]
+position = Vector2(600, 400)
+texture = ExtResource("2_oe6qn")
+
+[node name="SaveButton" type="Button" parent="Field"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -403.0
+offset_top = -598.0
+offset_right = -203.0
+offset_bottom = -533.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "Save"
+
+[node name="CancelButton" type="Button" parent="Field"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1003.0
+offset_top = -598.0
+offset_right = -803.0
+offset_bottom = -533.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "Cancel"
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Field"]
+offset_left = -503.0
+offset_top = -83.0
+offset_right = 397.0
+offset_bottom = 87.0
+theme_override_constants/separation = 10
+
+[node name="MasterSlider" type="HSlider" parent="Field/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="MusicSlider" type="HSlider" parent="Field/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="SFXSlider" type="HSlider" parent="Field/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Field"]
+custom_minimum_size = Vector2(1200, 100)
+offset_left = -603.0
+offset_top = -398.0
+offset_right = 597.0
+offset_bottom = -298.0
+theme_override_font_sizes/normal_font_size = 65
+bbcode_enabled = true
+text = "[center]Settings[/center]"
+
+[connection signal="pressed" from="Field/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="Field/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="value_changed" from="Field/HBoxContainer/MasterSlider" to="." method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="Field/HBoxContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="Field/HBoxContainer/SFXSlider" to="." method="_on_sfx_slider_value_changed"]

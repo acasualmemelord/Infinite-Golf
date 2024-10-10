@@ -1,40 +1,29 @@
 extends Node
 
-var rng = RandomNumberGenerator.new()
-var wall
-var walls = []
+var hits: int
+var red = preload("res://assets/red.tres")
+var orange = preload("res://assets/orange.tres")
+var purple = preload("res://assets/purple.tres")
+
+var arr = [red, orange, purple]
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	PlayerVariables.connect("updateObstacles", updateObstacles)
-	wall = get_parent().get_node("Wall")
-	updateObstacles(10)
+	updateTexture()
+	
+func updateTexture() -> void:
+	self.material = arr[hits - 1]
 
-func updateObstacles(num) -> void:
-	if not PlayerVariables.difficulty == "hardcore":
-		destroyObstacles()
-	for n in range(0, num):
-		var temp = wall.duplicate()
-		var length = rng.randf_range(1, 5)
-		var rotation = Vector3(0, deg_to_rad(rng.randf_range(0, 360)), 0)
-		
-		# randomize wall
-		temp.position = Vector3(rng.randf_range(-8, 8), 0.5, rng.randf_range(-8, 8))
-		temp.rotation = rotation
-		temp.size = Vector3(length, 0.5, 0.4)
-		
-		# update collision to match
-		var newCollision = BoxShape3D.new()
-		newCollision.size = temp.size
-		temp.get_child(0).get_child(0).set_shape(newCollision)
-		
-		# add wall to game
-		temp.add_to_group("Wall")
-		walls.append(temp)
-		self.get_parent().get_parent().add_child.call_deferred(temp)
+func hit() -> void:
+	hits -= 1
+	if hits == 0:
+		PlayerVariables.wallsDestroyed += 1
+		allWallsDestroyed()
+		self.queue_free()
+	else:
+		updateTexture()
 
-func destroyObstacles() -> void:
-	for n in walls.size():
-		if !walls[n]:
-			continue
-		walls[n].queue_free()
-	walls = []
+func allWallsDestroyed() -> void:
+	if PlayerVariables.wallsDestroyed == PlayerVariables.numWalls:
+		PlayerVariables.score += 20
+		PlayerVariables.emit_signal("updateInterface")
