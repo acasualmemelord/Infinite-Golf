@@ -30,7 +30,11 @@ func _ready() -> void:
 	holeSound = preload("res://assets/hole.wav")
 		
 func _input(_event) -> void:
-	if _event.is_action_pressed("left_mb") and (not PlayerVariables.paused) and (PlayerVariables.mode == "arcade" or PlayerVariables.strokes < PlayerVariables.maxStrokes):
+	if (not PlayerVariables.paused) and (PlayerVariables.mode == "arcade" or PlayerVariables.strokes < PlayerVariables.maxStrokes):
+		pass
+	if _event.is_action_pressed("jump"):
+		self.linear_velocity.y += 5
+	if _event.is_action_pressed("left_mb"):
 		selected = true
 	#After the mouse is released, we calculate the speed and shoot the ball in the given direction.	
 	if _event.is_action_released("left_mb"):

@@ -73,11 +73,11 @@ value = 0.5
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Field"]
 custom_minimum_size = Vector2(1200, 100)
-offset_left = -603.0
-offset_top = -398.0
-offset_right = 597.0
-offset_bottom = -298.0
-theme_override_font_sizes/normal_font_size = 65
+offset_left = -600.0
+offset_top = -380.0
+offset_right = 600.0
+offset_bottom = -243.0
+theme_override_font_sizes/normal_font_size = 90
 bbcode_enabled = true
 text = "[center]Settings[/center]"
 
