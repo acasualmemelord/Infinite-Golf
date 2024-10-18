@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dqsgltqstrrv" path="res://assets/kenney_prototype_textures/purple/texture_09.png" id="1_jcnr0"]
 
 [resource]
+albedo_color = Color(0.55864, 1, 0.972525, 1)
 albedo_texture = ExtResource("1_jcnr0")
 uv1_triplanar = true
 uv1_world_triplanar = true

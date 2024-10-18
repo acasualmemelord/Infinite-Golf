@@ -10,9 +10,9 @@ var SFXSlider
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	MasterSlider = self.get_node("TextureRect/HBoxContainer/MasterSlider")
-	MusicSlider = self.get_node("TextureRect/HBoxContainer/MusicSlider")
-	SFXSlider = self.get_node("TextureRect/HBoxContainer/SFXSlider")
+	MasterSlider = self.get_node("Field/HBoxContainer/MasterSlider")
+	MusicSlider = self.get_node("Field/HBoxContainer/MusicSlider")
+	SFXSlider = self.get_node("Field/HBoxContainer/SFXSlider")
 	MasterSlider.value = PlayerVariables.prevMaster
 	MusicSlider.value = PlayerVariables.prevMusic
 	SFXSlider.value = PlayerVariables.prevSFX
@@ -37,3 +37,6 @@ func _on_music_slider_value_changed(value: float) -> void:
 
 func _on_sfx_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(sfx, linear_to_db(value))
+
+func _on_colorblind_button_toggled(toggled_on: bool) -> void:
+	PlayerVariables.colorblind = toggled_on

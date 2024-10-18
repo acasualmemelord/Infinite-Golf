@@ -22,6 +22,7 @@ var paused: bool = false
 var prevMaster = 1
 var prevMusic = 0.5
 var prevSFX = 0.5
+var colorblind: bool = false
 
 var debugStr = "%s difficulty, %s mode\nlevel %s: %s"
 var debugStr2 = "level %s: %s (%s strokes)"

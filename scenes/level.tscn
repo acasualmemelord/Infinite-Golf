@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://cgcv2cybxk4or"]
 
-[ext_resource type="Material" uid="uid://c0ud8ap10h0la" path="res://assets/red.tres" id="1_r7a61"]
 [ext_resource type="Script" path="res://scripts/WallMaker.gd" id="2_loe7y"]
 [ext_resource type="Material" uid="uid://b6vsk6qwx2bc5" path="res://assets/green.tres" id="2_wsfcy"]
 [ext_resource type="Material" uid="uid://12em4e4dgrvg" path="res://assets/dark.tres" id="3_xk4yg"]
 [ext_resource type="Script" path="res://scripts/Hole.gd" id="3_ygkav"]
+[ext_resource type="Material" uid="uid://bwteegxjr7xbu" path="res://assets/pink.tres" id="5_4qukh"]
 [ext_resource type="Script" path="res://scripts/Wall.gd" id="6_kc28t"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fpkhe"]
@@ -89,7 +89,7 @@ script = ExtResource("2_loe7y")
 [node name="Wall" type="CSGBox3D" parent="CreatedWall" groups=["Wall"]]
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 10, 100, -10)
 size = Vector3(5, 0.5, 0.4)
-material = ExtResource("1_r7a61")
+material = ExtResource("5_4qukh")
 script = ExtResource("6_kc28t")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CreatedWall/Wall"]

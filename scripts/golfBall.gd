@@ -31,20 +31,20 @@ func _ready() -> void:
 		
 func _input(_event) -> void:
 	if (not PlayerVariables.paused) and (PlayerVariables.mode == "arcade" or PlayerVariables.strokes < PlayerVariables.maxStrokes):
-		pass
-	if _event.is_action_pressed("jump"):
-		self.linear_velocity.y += 5
-	if _event.is_action_pressed("left_mb"):
-		selected = true
-	#After the mouse is released, we calculate the speed and shoot the ball in the given direction.	
-	if _event.is_action_released("left_mb"):
-		if selected:
-			#Calculating the speed 
-			speed = -(direction * distance * accel).limit_length(max_speed)
-			if speed.length() > 1:
-				shoot(speed)
-		
-		selected = false
+		if _event.is_action_pressed("jump"):
+			self.linear_velocity.y += 5
+			PlayerVariables.stroke()
+		if _event.is_action_pressed("left_mb"):
+			selected = true
+		#After the mouse is released, we calculate the speed and shoot the ball in the given direction.	
+		if _event.is_action_released("left_mb"):
+			if selected:
+				#Calculating the speed 
+				speed = -(direction * distance * accel).limit_length(max_speed)
+				if speed.length() > 1:
+					shoot(speed)
+			
+			selected = false
 		
 func _process(_delta) -> void:
 	# sanity check: stop ball from phasing through ground
@@ -75,7 +75,7 @@ func _process(_delta) -> void:
 	
 #Shooting the golf ball.
 func shoot (vector:Vector3) -> void:
-	velocity = Vector3(vector.x,0,vector.z)
+	velocity = Vector3(vector.x, 0, vector.z)
 	
 	self.apply_impulse(velocity, Vector3.ZERO)
 	soundPlayer.stream = hitSound

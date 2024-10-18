@@ -1,16 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddndauqdm8obq"]
+[gd_scene load_steps=6 format=3 uid="uid://ddndauqdm8obq"]
 
-[ext_resource type="Texture2D" uid="uid://dm387uwadpugg" path="res://assets/kenney_prototype_textures/red/texture_09.png" id="1_7bmaj"]
+[ext_resource type="Material" uid="uid://12em4e4dgrvg" path="res://assets/dark.tres" id="1_0pnem"]
 [ext_resource type="Texture2D" uid="uid://brwiegf78prsh" path="res://assets/kenney_prototype_textures/green/texture_09.png" id="2_2nbhk"]
 [ext_resource type="Script" path="res://scripts/Hole.gd" id="3_o2olt"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2eynd"]
-shading_mode = 0
-albedo_color = Color(0.576471, 1, 0.764706, 1)
-albedo_texture = ExtResource("1_7bmaj")
-uv1_triplanar = true
-uv1_world_triplanar = true
-uv2_world_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5apxh"]
 shading_mode = 0
@@ -30,22 +22,22 @@ use_collision = true
 [node name="mainWall1" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 0, 0)
 size = Vector3(20, 1.5, 0.4)
-material = SubResource("StandardMaterial3D_2eynd")
+material = ExtResource("1_0pnem")
 
 [node name="mainWall2" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10, 0, 0)
 size = Vector3(20, 1.5, 0.4)
-material = SubResource("StandardMaterial3D_2eynd")
+material = ExtResource("1_0pnem")
 
 [node name="mainWall3" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 size = Vector3(20, 1.5, 0.4)
-material = SubResource("StandardMaterial3D_2eynd")
+material = ExtResource("1_0pnem")
 
 [node name="mainWall4" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
 size = Vector3(20, 1.5, 0.4)
-material = SubResource("StandardMaterial3D_2eynd")
+material = ExtResource("1_0pnem")
 
 [node name="ground" type="CSGBox3D" parent="CSGCombiner3D"]
 size = Vector3(20, 1, 20)

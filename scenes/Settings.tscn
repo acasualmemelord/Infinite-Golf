@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/Settings.gd" id="1_yvif4"]
 [ext_resource type="Texture2D" uid="uid://c6qv54vi3nbm1" path="res://assets/field.tres" id="2_oe6qn"]
 
-[node name="Settings" type="Control"]
+[node name="Settings2" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,6 +71,31 @@ max_value = 1.0
 step = 0.05
 value = 0.5
 
+[node name="HBoxContainer2" type="VBoxContainer" parent="Field"]
+offset_left = 425.0
+offset_top = -90.0
+offset_right = 625.0
+offset_bottom = 95.0
+theme_override_constants/separation = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Field/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+text = "Master"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Field/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+text = "Music"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Field/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+text = "SFX"
+
 [node name="RichTextLabel" type="RichTextLabel" parent="Field"]
 custom_minimum_size = Vector2(1200, 100)
 offset_left = -600.0
@@ -81,8 +106,27 @@ theme_override_font_sizes/normal_font_size = 90
 bbcode_enabled = true
 text = "[center]Settings[/center]"
 
+[node name="RichTextLabel2" type="RichTextLabel" parent="Field"]
+custom_minimum_size = Vector2(1200, 100)
+offset_left = -680.0
+offset_top = -200.0
+offset_right = 520.0
+offset_bottom = -63.0
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Colorblind Accessibility[/center]"
+
+[node name="ColorblindButton" type="CheckButton" parent="Field"]
+offset_left = 200.0
+offset_top = -195.0
+offset_right = 244.0
+offset_bottom = -171.0
+scale = Vector2(2, 2)
+theme_override_font_sizes/font_size = 40
+
 [connection signal="pressed" from="Field/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Field/CancelButton" to="." method="_on_cancel_button_pressed"]
 [connection signal="value_changed" from="Field/HBoxContainer/MasterSlider" to="." method="_on_master_slider_value_changed"]
 [connection signal="value_changed" from="Field/HBoxContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="Field/HBoxContainer/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="toggled" from="Field/ColorblindButton" to="." method="_on_colorblind_button_toggled"]
