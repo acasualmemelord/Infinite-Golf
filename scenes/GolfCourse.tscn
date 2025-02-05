@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_0hp73"]
 [ext_resource type="PackedScene" uid="uid://11owygk64ae0" path="res://scenes/GolfBall.tscn" id="1_rdf4p"]
-[ext_resource type="PackedScene" uid="uid://cgcv2cybxk4or" path="res://scenes/Level.tscn" id="2_8lycb"]
-[ext_resource type="PackedScene" uid="uid://ddndauqdm8obq" path="res://scenes/FakeLevel.tscn" id="3_y7lnm"]
+[ext_resource type="PackedScene" uid="uid://cgcv2cybxk4or" path="res://scenes/level.tscn" id="2_8lycb"]
+[ext_resource type="PackedScene" uid="uid://ddndauqdm8obq" path="res://scenes/fakelevel.tscn" id="3_y7lnm"]
 [ext_resource type="Script" path="res://scripts/Interface.gd" id="4_5vos6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x3fjl"]
