@@ -86,33 +86,53 @@ func shoot (vector:Vector3) -> void:
 func scaler_follow() -> void:
 	scaler.transform.origin = scaler.transform.origin.lerp(self.transform.origin,.8)
 	
-func pull_meter() -> void:
-	#Calling the raycast from the camera node.
-	var ray_cast = camera_3d.camera_raycast()
+const MOUSE_PROJECT_DEPTH = 5.0 # Example: project 100 units into the scene
+
+func get_mouse_world_projection() -> Vector3:
+	# Get the mouse position on the screen
+	var mouse_pos = get_viewport().get_mouse_position()
+
+	# Get the ray origin (camera position or near plane)
+	var ray_origin = camera_3d.project_ray_origin(mouse_pos)
 	
-	if not ray_cast.is_empty():
-		#Calculating the distance between the golf ball and the mouse position.
-		distance = self.position.distance_to(ray_cast.position)
-		#Calculating the direction vector between golf ball ,and mouse position.
-		direction = self.transform.origin.direction_to(ray_cast.position)
-		#Looking at the mouse position in the 3D world.
-		scaler.look_at(Vector3(ray_cast.position.x,position.y,ray_cast.position.z))
+	# Get the ray direction (normalized vector from camera through mouse)
+	var ray_direction = camera_3d.project_ray_normal(mouse_pos)
+	
+	# Project the point into 3D space by extending the ray
+	# This point is *not* limited by collisions.
+	return ray_origin + ray_direction * MOUSE_PROJECT_DEPTH
+	
+func pull_meter() -> void:
+	# Get the projected 3D world position of the mouse, independent of collisions.
+	var mouse_world_pos = get_mouse_world_projection()
+	
+	# Calculating the distance between the golf ball and the mouse's projected 3D position.
+	distance = self.position.distance_to(mouse_world_pos)
+	
+	# Calculating the direction vector between golf ball and mouse's projected 3D position.
+	# Use self.global_position if the ball is a node with a transform.
+	# If self is the golf ball (e.g., a CharacterBody3D or RigidBody3D), its 'position' is its global position.
+	direction = self.position.direction_to(mouse_world_pos) 
+	
+	# Looking at the mouse's projected 3D position (only X and Z for a horizontal look).
+	# Ensure 'scaler' is a Spatial node (e.g., Node3D) that can be rotated.
+	scaler.look_at(Vector3(mouse_world_pos.x, position.y, mouse_world_pos.z), Vector3.UP) # Added UP vector for clarity
+	
+	if selected:
+		# Scaling the scaler with limitation
+		scaler.scale.z = -clamp(distance, 0, 2)
+
+		# Create the new material
+		var material = StandardMaterial3D.new()
+		material.albedo_color = get_color_based_on_distance(distance)
+
+		# Get the MeshInstance3D node and apply the material
+		var mesh_instance = scaler.get_node("Mesh")
+		mesh_instance.set_surface_override_material(0, material)
 		
-		if selected:
-			# Scaling the scaler with limitation
-			scaler.scale.z = -clamp(distance, 0, 2)
-
-			# Create the new material
-			var material = StandardMaterial3D.new()
-			material.albedo_color = get_color_based_on_distance(distance)
-
-			# Get the MeshInstance3D node and apply the material
-			var mesh_instance = scaler.get_node("Mesh")
-			mesh_instance.set_surface_override_material(0, material)
-			
-		else:
-			#Resetting the scaler.
-			scaler.scale.z = 0.01
+	else:
+		#Resetting the scaler.
+		scaler.scale.z = 0.01
 
 func get_color_based_on_distance(length: float) -> Color:
 	if length <= 3:

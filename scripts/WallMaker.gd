@@ -16,7 +16,7 @@ func updateObstacles(num) -> void:
 	for n in range(0, num):
 		var temp = wall.duplicate()
 		var length = rng.randf_range(1, 5)
-		var rotation = Vector3(0, deg_to_rad(rng.randf_range(0, 360)), 0)
+		var rotation = Vector3(0, deg_to_rad(rng.randf_range(0, 24) * 15), 0)
 		
 		# randomize wall
 		temp.position = Vector3(rng.randf_range(-8, 8), 0.5, rng.randf_range(-8, 8))

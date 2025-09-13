@@ -47,5 +47,5 @@ func camera_raycast():
 	to = from + project_ray_normal(mouse_pos) * ray_length
 	space = get_world_3d().direct_space_state
 	query = PhysicsRayQueryParameters3D.create(from, to)
-	query.collision_mask = 3
+	query.collision_mask = 1
 	return space.intersect_ray(query)

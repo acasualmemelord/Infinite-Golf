@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://qdijyok51f7u"]
 
-[ext_resource type="Script" path="res://scripts/GameOver.gd" id="1_m60vd"]
+[ext_resource type="Script" uid="uid://dff3dt0bq0gc5" path="res://scripts/GameOver.gd" id="1_m60vd"]
 
 [sub_resource type="Animation" id="Animation_7etw0"]
 length = 0.001
@@ -106,8 +106,8 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_46gdw"]
 _data = {
-"RESET": SubResource("Animation_7etw0"),
-"fade_in": SubResource("Animation_ldpbd")
+&"RESET": SubResource("Animation_7etw0"),
+&"fade_in": SubResource("Animation_ldpbd")
 }
 
 [node name="GameOver" type="CanvasLayer"]
